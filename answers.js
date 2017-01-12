@@ -4,47 +4,128 @@ to **print** only the positive numbers.*/
 
 function printPositives() {
     var array= [2, 4, -6, -8, 10];
-    array.forEach(function(num) {
-        if(num > 0) {
-            console.log(num);
-        }
-    })
-}
+    array.forEach(x => x > 0 )};
+
 printPositives();
 
 /*## Get positive
-Similar to the previous exercise, write a function called `getPositives` that takes an array and uses the `filter` method to **return a new array** with only the positive numbers.
+Similar to the previous exercise, write a function called `getPositives` that takes an array
+and uses the `filter` method to **return a new array** with only the positive numbers.*/
 
-## Filter it out
-Re-do exercise 1 by first filtering the input array, and then printing the numbers from the filtered array. Your code will look something like: `return arr.filter(...).forEach(...)`.
+function getPositives() {
+    var array= [2, 4, -6, -8, 10];
+    
+   var filteredArray=  array.filter(function(num){
+        return num > 0;
+    });
+    return filteredArray;
+}
+console.log(getPositives());
 
-## Filter Array
-Write a function called `filterArray` that takes a callback function and an array as arguments. Your `filterArray` function should return a new array that contains only the elements where the callback function returns `true`.
+/*## Filter it out
+Re-do exercise 1 by first filtering the input array, and then printing the numbers from the filtered array.
+Your code will look something like: `return arr.filter(...).forEach(...)`.*/
 
-**NOTE**: This is a **trick question**. The answer is a one-liner and you are allowed to use `array.filter` :)
+function printPositives() {
+    var array= [2, 4, -6, -8, 10];
+    
+    array.filter(x => x > 0).forEach(function(num){
+        console.log(num);
+    });
+}
+printPositives();
 
-## The Longest Word
-Write a function called `longestWord` that takes a string as argument, and returns the longest word in the string. You should use `Array.prototype.reduce` to do your work.
+/*## Filter Array
+Write a function called `filterArray` that takes a callback function and an array as arguments.
+Your `filterArray` function should return a new array that contains only the elements
+where the callback function returns `true`.
 
-**Hint**: You can use `String.prototype.split` to split the string into an array of words.
+**NOTE**: This is a **trick question**. The answer is a one-liner and you are allowed to use `array.filter` :)*/
 
-## I'd like to buy a vowel
-Write a function called `countVowels` that takes a string and returns the number of vowels in the string. You should use `Array.prototype.reduce` to do your work.
+function filterArray(isPositive, arr) {
+    
+    arr.filter(arg => isPositive(arg));
+    
+    arr.filter(function(arg) {
+        return isPositive(arg)
+    })
+    
+    
+    
+}
 
-For the string `"The quick brown fox"`, the output should be `5` because there is one `e`, one `u`, one `i` and two `o`s.
+/*## The Longest Word
+Write a function called `longestWord` that takes a string as argument, and returns the longest word in the string.
+You should use `Array.prototype.reduce` to do your work.
+**Hint**: You can use `String.prototype.split` to split the string into an array of words.*/
 
-**Hint**: You can use `String.prototype.split` again. There is a way to use it to split a string by character. Try to Google it :)
+function longestWord(str) {
+    return str.split(" ").reduce( function(lgestWord, word) {
+        if(word.length > lgestWord.length) {
+            lgestWord = word;
+        }
+        return lgestWord;
+    }, "")
+}
 
-**Hint 2**: You can create an array of vowels and use `Array.prototype.indexOf` to check if the current letter is a vowel.
+console.log(longestWord("I love to eat chocolate and pizza"));
 
-## High? Low?
-Write a function called `highLow` that takes an array of numbers, and returns an object with a property `highest` containing the highest number, and a property `lowest` containing the lowest number, using `Array.prototype.reduce`.
+/*## I'd like to buy a vowel
+Write a function called `countVowels` that takes a string and returns the number of vowels in the string. 
+You should use `Array.prototype.reduce` to do your work.
+For the string `"The quick brown fox"`, the output should be `5` because there is one `e`, one `u`, one `i` and
+two `o`s.
+
+**Hint**: You can use `String.prototype.split` again. There is a way to use it to split a string by character.
+Try to Google it :)
+
+**Hint 2**: You can create an array of vowels and use `Array.prototype.indexOf` to check if the current letter
+is a vowel.*/
+
+function countVowels(str) {
+    
+    var tempArray= str.split("");
+    
+  return  tempArray.reduce(function(vowCount, currentLetter){
+        var vowels=["a", "e", "i", "o", "u"];
+        
+        if (vowels.indexOf(currentLetter.toLowerCase()) !== -1) {
+            vowCount +=1;
+        }
+        return vowCount;
+    }, 0);
+    
+}
+console.log(countVowels("I love to eat chocolate and pizza"));
+
+/*## High? Low?
+Write a function called `highLow` that takes an array of numbers, and returns an object with a property
+`highest` containing the highest number, and a property `lowest` containing the lowest number,
+using `Array.prototype.reduce`.
 
 For example, starting with `[1, -10, 20, 40, 5]`, your function should return `{highest: 40, lowest: -10}`.
 
-**Hint**: Javascript has a special value called `Infinity`, which is higher than any other number. See if you can initialize your reduce accumulator with `Infinity` and `-Infinity` :)
+**Hint**: Javascript has a special value called `Infinity`, which is higher than any other number.
+See if you can initialize your reduce accumulator with `Infinity` and `-Infinity` :)*/
 
-## Wheel of Fortune
+function highLow(arr) {
+    return arr.reduce(function(acc, currentNum) {
+        
+        if (currentNum > acc.high) {
+            acc.high = currentNum;
+        }
+        if (currentNum < acc.low) {
+            acc.low = currentNum;
+        }
+        return acc;
+    }, {high: -Infinity, low: Infinity}) 
+        
+    
+}
+
+console.log(highLow([10, 20, -10, -20]));
+
+/*## Wheel of Fortune
 Write a function called `countChars` that takes a string, and returns an object where the keys are letters, and the value is the number of times that letter appears.
 
 For example, with input "hello world", the output should be:
