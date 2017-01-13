@@ -227,6 +227,9 @@ function negate(fn) {
         return function(x) {
             return !fn(x);
         };
+        //return function() {
+        //     return !fn.call(this)
+        // }
   // your solution goes here  x => !fn(x)
 }
 
@@ -255,9 +258,12 @@ But for this challenge, you should make `negate` work for an arbitrary number of
 Hint: you can use the `arguments` keyword :)
 ```javascript*/
 function negate2(fn) {
+        // return function() {
+        //     return !fn.apply(this, arguments)
+        // };
         return function() {
-            return !fn.apply(this, arguments)
-        };
+            return !fn(fn.arguments)
+        }
    //your solution goes here
 }
 
@@ -345,11 +351,34 @@ Write a function called `peopleById` that takes an array of people and returns a
 is keyed by their unique ID.
 
 You have effectively created what we call an *index*, not unlike the one you have in your phonebook.*/
-
+var people = [
+  {
+    "id": "KeXoYg92is",
+    "firstName": "John",
+    "lastName": "Smith",
+    "email": "john@smith.com"
+  },
+  {
+    "id": "NkALmSWtUp",
+    "firstName": "Donald",
+    "lastName": "Duck",
+    "email": "don@disney.com"
+  },
+  {
+    "id": "m7LPbJYSUg",
+    "firstName": "John",
+    "lastName": "Vader",
+    "email": "vader@darkside.com"
+  }];
 
 function peopleById(){
-    
+    return people.reduce(function(acc, currentObj) {
+        acc[currentObj.id] = currentObj;
+        return acc;
+    }, {});
 }
+
+console.log(peopleById());
 
 /*## Find by First Name
 Expanding on the previous exercise, this time we are going to create an index on **first names**.
@@ -357,7 +386,6 @@ Notice how in the previous exercise, each ID was unique. In this case, two peopl
 
 We want to create a function called `peopleByFirstName` that will take an array of people and
 return something that looks like this:
-
 ```json
 {
   "John": [
@@ -386,9 +414,46 @@ return something that looks like this:
 ```
 
 You have effectively created an *index on first name*. This lets you find all people called, say, 
-"John" without having to look through the whole results.
+"John" without having to look through the whole results.*/
+var people2 = [
+  {
+    "id": "KeXoYg92is",
+    "firstName": "John",
+    "lastName": "Smith",
+    "email": "john@smith.com"
+  },
+  {
+    "id": "NkALmSWtUp",
+    "firstName": "Donald",
+    "lastName": "Duck",
+    "email": "don@disney.com"
+  },
+  {
+    "id": "m7LPbJYSUg",
+    "firstName": "John",
+    "lastName": "Vader",
+    "email": "vader@darkside.com"
+  }];
+  
+function peopleByFirstName() {
+    return people2.reduce(function(acc, currentObj) {
+        
+         if (acc[currentObj.firstName]===undefined ) {
+            acc[currentObj.firstName] = []
+         }
+        acc[currentObj.firstName].push(currentObj);
+        
+        
+        console.log(acc[currentObj.firstName])
+        
+     
+        return acc;
+    }, {})
+   
+}
 
-## High? Low? Part 2!
+console.log(peopleByFirstName());
+/*## High? Low? Part 2!
 Expanding on a previous exercise, write a function called `highLowTwo` that takes an array of numbers, 
 and returns the higest, second highest, lowest, and second lowest numbers.
 
@@ -403,3 +468,9 @@ For example, starting with `[1, -10, 20, 40, 5]`, your function should return:
 }
 ```
 */
+
+function foo(a, b, c, d) {
+    console.log(foo.arguments);
+}
+
+foo(3, 4, 5, 6, 7)
