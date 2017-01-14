@@ -453,6 +453,7 @@ function peopleByFirstName() {
 }
 
 console.log(peopleByFirstName());
+
 /*## High? Low? Part 2!
 Expanding on a previous exercise, write a function called `highLowTwo` that takes an array of numbers, 
 and returns the higest, second highest, lowest, and second lowest numbers.
@@ -468,9 +469,47 @@ For example, starting with `[1, -10, 20, 40, 5]`, your function should return:
 }
 ```
 */
-
-function foo(a, b, c, d) {
-    console.log(foo.arguments);
+function highLowTwo(numArray) {
+    var highestNumber = numArray.reduce(function(a, b) {
+    if (b > a) {
+      return b;
+    }
+    return a;
+  }, -Infinity);
+  var lowestNumber = numArray.reduce(function(a, b) {
+    if (b < a) {
+      return b;
+    }
+    return a;
+  }, Infinity);
+  var secondHighestNum = numArray.reduce(function(a, b) {
+    if(b > a && b < highestNumber) {
+      return b;
+    }
+    return a;
+  }, -Infinity);
+  
+  var seconLowestNum = numArray.reduce(function(a, b){
+    if (b < a && b>lowestNumber) {
+      return b;
+    }
+    return a;
+  }, Infinity);
+  return {
+    highest: highestNumber,
+    secondHighest: secondHighestNum,
+    lowest: lowestNumber,
+    seconLowestNum
+  };
 }
 
-foo(3, 4, 5, 6, 7)
+
+console.log(highLowTwo([10, 20, -10, -20, 5, 8, -200, 100,  -8, 0]));
+
+
+
+// function foo(a, b, c, d) {
+//     console.log(foo.arguments);
+// }
+
+// foo(3, 4, 5, 6, 7)
